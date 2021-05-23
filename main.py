@@ -15,6 +15,7 @@ class MainForm(QWidget, gui_template.Ui_Form):
         self.verticalLayout.addWidget(self.QTable)
         self.model_table.setHorizontalHeaderLabels(['id', 'Email', 'Password', 'Proxy', 'Action', 'Info', 'Social'])
         self.add_data()
+        self.btn_start.clicked.connect(self.return_select_rows)
 
     def add_data(self):
         with open('data/accounts.txt', 'r') as f:
@@ -25,6 +26,16 @@ class MainForm(QWidget, gui_template.Ui_Form):
             self.model_table.setItem(i, 2, QStandardItem(acc.split(':')[1]))
             self.model_table.setItem(i, 3, QStandardItem(acc.split(':')[2]))
 
+    def return_select_rows(self):
+        list_rows = []
+        list_rows_id = []
+        indexes = self.QTable.selectionModel().selectedRows()
+        for index in sorted(indexes):
+            row = str(index.row())
+            list_rows.append(row)
+            list_rows_id.append(int(self.model_table.item(int(row), 0).text()))
+        print(list_rows, list_rows_id)
+        return (list_rows, list_rows_id)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
