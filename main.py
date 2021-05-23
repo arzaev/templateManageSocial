@@ -2,7 +2,7 @@ import sys
 from model import QTable_S
 from gui import TableView_S
 from PyQt5.QtWidgets import QApplication, QWidget
-import gui_template
+from gui import gui_template
 from PyQt5.QtGui import QStandardItem
 
 
@@ -36,6 +36,7 @@ class MainForm(QWidget, gui_template.Ui_Form):
             list_rows_id.append(int(self.model_table.item(int(row), 0).text()))
         print(list_rows, list_rows_id)
         return (list_rows, list_rows_id)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
